@@ -18,10 +18,10 @@
   
  
    @example:<br />
-       KIX.Instance.Load<string>( <my_file_path>, out data );<br />
-       KIX.Instance.Load<byte[]>( <my_file_path>, out data );<br />
-       OR (inside coroutine)<br />
-       yield return KIX.Instance.Load<string>( <my_file_path>, out data );<br />
+   &ensp;&ensp;&ensp;KIX.Instance.Load<string>( <my_file_path>, out data );<br />
+   &ensp;&ensp;&ensp;KIX.Instance.Load<byte[]>( <my_file_path>, out data );<br />
+   &ensp;&ensp;OR (inside coroutine)<br />
+   &ensp;&ensp;&ensp;yield return KIX.Instance.Load<string>( <my_file_path>, out data );<br />
  
 **EVENT SYSTEM SUPPORT**
    - Fires events to all listeners.
@@ -30,11 +30,11 @@
   
   @example:<br />
     + Listen to KIX events:<br />
-         KIX.Instance.Events += OnKIXEvent;<br /><br />
+   &ensp;&ensp;&ensp;KIX.Instance.Events += OnKIXEvent;<br /><br />
     + Fire KIX events:<br />
-         KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);<br />
-         KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData)); <br />   
-         KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);<br /><br />
+    &ensp;&ensp;&ensp;KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);<br />
+    &ensp;&ensp;&ensp;KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData)); <br />   
+    &ensp;&ensp;&ensp;KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);<br /><br />
      
        
 **LISTEN TO SPECIFIC EVENTS**
@@ -45,9 +45,9 @@
   
    @example:<br />
     + Listen to specific KIX events:<br />
-         KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
+    &ensp;&ensp;&ensp;KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
     + Stop listening to specific KIX events:<br />
-         KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
+    &ensp;&ensp;&ensp;KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
   
  
 **FIRE TO SPECIFIC EVENTS**<br />
@@ -56,7 +56,7 @@
     
   @example:<br />
     + Fire specific event:<br />
-         KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );
+    &ensp;&ensp;&ensp;KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );
         
 
 **CREATE CUSTOM EVENTS**<br />
@@ -66,6 +66,6 @@
    @example:<br />
        public class CustomEventTypes : KIXEventType<br />
        {<br />
-           public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");<br />
-           public CustomEventTypes(int key, string value) : base(key, value){ }<br />
+       &ensp;&ensp;&ensp;public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");<br />
+       &ensp;&ensp;&ensp;public CustomEventTypes(int key, string value) : base(key, value){ }<br />
        }<br />
