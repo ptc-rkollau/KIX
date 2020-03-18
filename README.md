@@ -1,9 +1,7 @@
-# KIX
-Unity3D  Event system
+# KIX - Kickstart your interface experience.
 
-
- * KIX - Kickstart your interface experience.
    ------------------------------------------------------------------------------
+   Unity3D  Event system
    Responsible for all things loading, crunching, heavy lifting.
    Responsible for all things event flow.
   
@@ -32,12 +30,11 @@ Unity3D  Event system
   
   @example:
     + Listen to KIX events:
-      KIX.Instance.Events += OnKIXEvent;
-      
+         KIX.Instance.Events += OnKIXEvent;
     + Fire KIX events:
-      KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);
-      KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData));    
-      KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);
+         KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);
+         KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData));    
+         KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);
      
        
  * LISTEN TO SPECIFIC EVENTS
@@ -47,11 +44,10 @@ Unity3D  Event system
    - Base listener class with add and remove specific events support
   
   @example:
-    + Listen to specific KIX events.
-       KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );
-       
-    + Stop listening to specific KIX events.
-       KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );
+    + Listen to specific KIX events:
+         KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );
+    + Stop listening to specific KIX events:
+         KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );
   
  
  * FIRE TO SPECIFIC EVENTS
@@ -59,8 +55,8 @@ Unity3D  Event system
       aka addEventListener
     
   @example:
-     + Fire specific event:
-        KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );
+    + Fire specific event:
+         KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );
         
 
  *  CREATE CUSTOM EVENTS
@@ -71,6 +67,5 @@ Unity3D  Event system
        public class CustomEventTypes : KIXEventType
        {
            public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");
- 
            public CustomEventTypes(int key, string value) : base(key, value){ }
        }
