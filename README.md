@@ -47,9 +47,9 @@
   
    @example:<br />
     + Listen to specific KIX events:<br />
-    &ensp;&ensp;&ensp;```KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );```<br /><br />
+    &ensp;&ensp;&ensp;```KIX.Instance.AddEventListener( KIXEvent.DEFAULT, <my_method> );```<br /><br />
     + Stop listening to specific KIX events:<br />
-    &ensp;&ensp;&ensp;```KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );```<br /><br /><br />
+    &ensp;&ensp;&ensp;```KIX.Instance.RemoveEventListener( KIXEvent.DEFAULT, <my_method> );```<br /><br /><br />
   
  
 **FIRE TO SPECIFIC EVENTS**<br />
@@ -58,7 +58,7 @@
     
   @example:<br />
     + Fire specific event:<br />
-    &ensp;&ensp;&ensp;```KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );```
+    &ensp;&ensp;&ensp;```KIX.Instance.FireEvent( new KIXEvent( KIXEvent.DEFAULT, <possible_data> ) );```
         <br /><br /><br />
 
 **CREATE CUSTOM EVENTS**<br />
