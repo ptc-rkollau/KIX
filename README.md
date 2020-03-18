@@ -1,4 +1,4 @@
-# KIX - Kickstart your interface experience.
+# KIX - Kickstart your Unity3D appflow experience.
   ------------------------------------------------------------------------------
  current version: 1.0.0
 <br />
