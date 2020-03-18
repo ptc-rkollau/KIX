@@ -1,4 +1,8 @@
 # KIX - Kickstart your interface experience.
+  ------------------------------------------------------------------------------
+@author         : Robin Kollau ( Rackdoll@gmail.com )<br />
+@current version: 1.0.0
+<br />
 
    ------------------------------------------------------------------------------
    Unity3D Event system.<br />
