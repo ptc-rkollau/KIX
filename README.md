@@ -12,8 +12,7 @@
    of main thread availability.
   
    By Using KIX Events you can loosly couple you application components,
-   which provides an ease of scalability and adjustability.
- 
+   which provides an ease of scalability and adjustability.<br /><br />
  
 **LOADING SUPPORT**
    - Loads File as string
@@ -24,7 +23,7 @@
    &ensp;&ensp;&ensp;```KIX.Instance.Load<string>( <my_file_path>, out data );```<br />
    &ensp;&ensp;&ensp;```KIX.Instance.Load<byte[]>( <my_file_path>, out data );```<br />
    &ensp;&ensp;OR (inside coroutine)<br />
-   &ensp;&ensp;&ensp;```yield return KIX.Instance.Load<string>( <my_file_path>, out data );```<br />
+   &ensp;&ensp;&ensp;```yield return KIX.Instance.Load<string>( <my_file_path>, out data );```<br /><br /><br />
  
 **EVENT SYSTEM SUPPORT**
    - Fires events to all listeners.
@@ -37,7 +36,7 @@
     + Fire KIX events:<br />
     &ensp;&ensp;&ensp;```KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);```<br />
     &ensp;&ensp;&ensp;```KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData));```<br />
-    &ensp;&ensp;&ensp;```KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData),3000, sender);```<br /><br />
+    &ensp;&ensp;&ensp;```KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData),3000, sender);```<br /><br /><br />
      
        
 **LISTEN TO SPECIFIC EVENTS**
@@ -50,7 +49,7 @@
     + Listen to specific KIX events:<br />
     &ensp;&ensp;&ensp;```KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );```<br /><br />
     + Stop listening to specific KIX events:<br />
-    &ensp;&ensp;&ensp;```KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );```<br /><br />
+    &ensp;&ensp;&ensp;```KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );```<br /><br /><br />
   
  
 **FIRE TO SPECIFIC EVENTS**<br />
@@ -60,7 +59,7 @@
   @example:<br />
     + Fire specific event:<br />
     &ensp;&ensp;&ensp;```KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );```
-        
+        <br /><br /><br />
 
 **CREATE CUSTOM EVENTS**<br />
     - Ability to create custom events<br />
