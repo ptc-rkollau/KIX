@@ -1,8 +1,8 @@
 # KIX - Kickstart your interface experience.
 
    ------------------------------------------------------------------------------
-   Unity3D  Event system
-   Responsible for all things loading, crunching, heavy lifting.
+   Unity3D Event system.<br />
+   Responsible for all things loading, crunching, heavy lifting.<br />
    Responsible for all things event flow.
   
    Executes everything on different threads, but provides the ease
@@ -17,24 +17,24 @@
    - Loads File as ByteArray
   
  
-  @example:
-       KIX.Instance.Load<string>( <my_file_path>, out data );
-       KIX.Instance.Load<byte[]>( <my_file_path>, out data );
-       OR (inside coroutine)
-       yield return KIX.Instance.Load<string>( <my_file_path>, out data );
+  @example:<br />
+       KIX.Instance.Load<string>( <my_file_path>, out data );<br />
+       KIX.Instance.Load<byte[]>( <my_file_path>, out data );<br />
+       OR (inside coroutine)<br />
+       yield return KIX.Instance.Load<string>( <my_file_path>, out data );<br />
  
  * EVENT SYSTEM SUPPORT.
    - Fires events to all listeners.
    - Fires delayed events to all listeners.
    - Has inheritable / extentable event types.
   
-  @example:
-    + Listen to KIX events:
-         KIX.Instance.Events += OnKIXEvent;
-    + Fire KIX events:
-         KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);
-         KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData));    
-         KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);
+  @example:<br />
+    + Listen to KIX events:<br />
+         KIX.Instance.Events += OnKIXEvent;<br /><br />
+    + Fire KIX events:<br />
+         KIX.Instance.Fire(new KIXEvent(KIXEvent.DEFAULT, myData), sender);<br />
+         KIX.Instance.FireEvent(new KIXEvent(KIXEvent.DEFAULT, myData)); <br />   
+         KIX.Instance.FireDelayed(new KIXEvent(KIXEvent.DEFAULT, myData), 3000, sender);<br /><br />
      
        
  * LISTEN TO SPECIFIC EVENTS
@@ -43,29 +43,29 @@
    - Base listener class with add and remove all events support
    - Base listener class with add and remove specific events support
   
-  @example:
-    + Listen to specific KIX events:
-         KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );
-    + Stop listening to specific KIX events:
-         KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );
+  @example:<br />
+    + Listen to specific KIX events:<br />
+         KIX.Instance.AddEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
+    + Stop listening to specific KIX events:<br />
+         KIX.Instance.RemoveEventListener( KIXNavEvent.HOME, <my_method> );<br /><br />
   
  
- * FIRE TO SPECIFIC EVENTS
+ * FIRE TO SPECIFIC EVENTS<br />
     - Ability to fire specific events, only for listeners to that specific event.
-      aka addEventListener
+      aka addEventListener<br /><br />
     
-  @example:
-    + Fire specific event:
+  @example:<br />
+    + Fire specific event:<br />
          KIX.Instance.FireEvent( new KIXEvent( KIXNavEvent.HOME, <possible_data> ) );
         
 
- *  CREATE CUSTOM EVENTS
-    - Ability to create custom events
-    - Ability to polymorph base event types class.
+ *  CREATE CUSTOM EVENTS<br />
+    - Ability to create custom events<br />
+    - Ability to polymorph base event types class.<br />
     
-   @example:
-       public class CustomEventTypes : KIXEventType
-       {
-           public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");
-           public CustomEventTypes(int key, string value) : base(key, value){ }
-       }
+   @example:<br />
+       public class CustomEventTypes : KIXEventType<br />
+       {<br />
+           public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");<br />
+           public CustomEventTypes(int key, string value) : base(key, value){ }<br />
+       }<br />
