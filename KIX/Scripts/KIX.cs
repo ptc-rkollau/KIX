@@ -1,6 +1,9 @@
 ﻿/*
  * KIX - Kickstart your interface experience.
  * ------------------------------------------------------------------------------
+ * Current Version 1.0.1 - March 2020
+ * ------------------------------------------------------------------------------
+ * 
  * Responsible for all things loading, crunching, heavy lifting.
  * Responsible for all things event flow.
  * 
@@ -127,7 +130,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
 
 
     //privates.
-    private static KIX instance = null;
+    private static readonly KIX instance = new KIX();
     private bool isWorking;
     private Dictionary<string, List<Action<KIXEvent>>> listeners_ = new Dictionary<string, List<Action<KIXEvent>>>();
 
@@ -137,14 +140,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
     /// Instance
     /// Singleton constructor
     /// </summary>
-    public static KIX Instance
-    {
-        get
-        {
-            if (instance == null) instance = new KIX();
-            return instance;
-        }
-    }
+    public static KIX Instance { get { return instance; } }
 
 
     #region KIX_EVENT_SYSTEM
@@ -260,7 +256,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
     ///<returns>T<returns>
     public object LoadFile<T>(string url, out T output)
     {
-        OnEvent(new KIXEvent(KIXEventType.START, null));
+        OnEvent(new KIXEvent(KIXEventType.START));
         isWorking = true;
         Type gt = typeof(T);
         T result = default(T);
@@ -276,7 +272,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
         // while (isWorking) { }
         result = (T)Convert.ChangeType(o, typeof(T));
         output = result;
-        OnEvent(new KIXEvent(KIXEventType.STOP, null));
+        OnEvent(new KIXEvent(KIXEventType.STOP));
         return result;
     }
 
@@ -310,12 +306,12 @@ public class KIX : UnityEngine.CustomYieldInstruction
     /// <returns>object</returns>
     public object Run(Action task)
     {
-        OnEvent(new KIXEvent(KIXEventType.START, null));
+        OnEvent(new KIXEvent(KIXEventType.START));
         isWorking = true;
         Thread t = Execute(task);
         t.Join();
         // while (isWorking) { }
-        OnEvent(new KIXEvent(KIXEventType.STOP, null));
+        OnEvent(new KIXEvent(KIXEventType.STOP));
         return new object();
     }
     #endregion
@@ -372,7 +368,6 @@ public class KIX : UnityEngine.CustomYieldInstruction
     private void OnEvent(KIXEvent e, object sender = null)
     {
         var handler = Events;
-        e.Data["Target"] = this;
         handler?.Invoke(e);
     }
     #endregion
@@ -422,6 +417,14 @@ public class KIX : UnityEngine.CustomYieldInstruction
 
 
 #region KIX Events & Types
+
+public struct KIXData
+{
+    public object Value;
+}
+
+
+
 /*
  * KIX Event
  * Communication body for KIX occurences.
@@ -429,17 +432,18 @@ public class KIX : UnityEngine.CustomYieldInstruction
  */
 public class KIXEvent : EventArgs
 {
-    public KIXEventType Type { private set; get; }
-    public Dictionary<string, object> Data { private set; get; }
-    public KIXEvent(KIXEventType t, Dictionary<string, object> data = null)
+    public string Type { private set; get; }
+    public KIXData Data { private set; get; }
+
+    public KIXEvent(KIXEventType t, KIXData data = new KIXData() )
+    {
+        Type = t.Value;
+        Data = data;
+    }
+    public KIXEvent(string t, KIXData data = new KIXData())
     {
         Type = t;
-        Data = data ?? new Dictionary<string, object>();
-    }
-    public KIXEvent(string t, Dictionary<string, object> data = null)
-    {
-        Type = KIXEventType.GetByValue(t);
-        Data = data ?? new Dictionary<string, object>();
+        Data = data;
     }
 }
 
@@ -556,6 +560,10 @@ public class KIXListener : UnityEngine.MonoBehaviour, IKIXListener
     /// <param name="evtType">KIXEventType</param>
     /// <param name="proxy">Action<KIXEvent></param>
     public void AddEventListener(KIXEventType evtType, Action<KIXEvent> proxy)
+    {
+        KIX.Instance.AddEventListener(evtType, proxy);
+    }
+    public void AddEventListener(string evtType, Action<KIXEvent> proxy)
     {
         KIX.Instance.AddEventListener(evtType, proxy);
     }
