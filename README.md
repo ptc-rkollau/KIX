@@ -5,26 +5,14 @@
 
    ------------------------------------------------------------------------------
    Unity3D Event system.<br />
-   Responsible for all things loading, crunching, heavy lifting.<br />
-   Responsible for all things event flow.
-  
-   Executes everything on different threads, but provides the ease
-   of main thread availability.
-  
+   + Responsible for all things event flow.<br />
    By Using KIX Events you can loosly couple you application components,
    which provides an ease of scalability and adjustability.<br /><br />
- 
-**LOADING SUPPORT**
-   - Loads File as string
-   - Loads File as ByteArray
-  
- 
-   @example:<br />
-   &ensp;&ensp;&ensp;```KIX.Instance.Load<string>( <my_file_path>, out data );```<br />
-   &ensp;&ensp;&ensp;```KIX.Instance.Load<byte[]>( <my_file_path>, out data );```<br />
-   &ensp;&ensp;OR (inside coroutine)<br />
-   &ensp;&ensp;&ensp;```yield return KIX.Instance.Load<string>( <my_file_path>, out data );```<br /><br /><br />
- 
+   + Responsible for all things loading, crunching, heavy lifting.<br />
+   Executes everything on different threads, but provides the ease
+   of main thread availability.<br /><br />
+   
+
 **EVENT SYSTEM SUPPORT**
    - Fires events to all listeners.
    - Fires delayed events to all listeners.
@@ -70,4 +58,15 @@
        {<br />
        &ensp;&ensp;&ensp;public static readonly KIXEventType CUSTOM_TYPE = new KIXEventType(100, "CUSTOM_TYPE");<br />
        &ensp;&ensp;&ensp;public CustomEventTypes(int key, string value) : base(key, value){ }<br />
-       }<br />
+       }<br /><br />
+
+**LOADING SUPPORT**
+   - Loads File as string
+   - Loads File as ByteArray
+  
+ 
+   @example:<br />
+   &ensp;&ensp;&ensp;```KIX.Instance.Load<string>( <my_file_path>, out data );```<br />
+   &ensp;&ensp;&ensp;```KIX.Instance.Load<byte[]>( <my_file_path>, out data );```<br />
+   &ensp;&ensp;OR (inside coroutine)<br />
+   &ensp;&ensp;&ensp;```yield return KIX.Instance.Load<string>( <my_file_path>, out data );```<br /><br /><br />
