@@ -623,6 +623,10 @@ public interface IKIXDispatcher
     void FireKIXEvent(KIXEvent evt);
 }
 
+
+
+
+
 /**
  *  KIX Dispatcher
  *  Add functionality to enable system to fire events to KIX Event System.
@@ -633,6 +637,52 @@ public class KIXDispatcher : UnityEngine.MonoBehaviour, IKIXDispatcher
     public void FireKIXEvent(KIXEvent evt)
     {
         KIX.Instance.FireEvent(evt);
+    }
+    public void FireDelayedKIXEvent(KIXEvent evt, int delayInMS )
+    {
+        KIX.Instance.FireDelayed(evt, delayInMS, this);
+    }
+}
+
+
+
+
+/**
+ *  KIX Data Dispatcher
+ *  Add functionality to enable system to fire events with data to KIX Event System.
+ * 
+ */
+[System.Serializable]
+public struct DataItem
+{
+    public string ID;
+    public string Data;
+}
+public class KIXDataDispatcher : KIXDispatcher
+{
+    public List<DataItem> data;
+
+    protected KIXData GetData()
+    {
+        KIXData result = new KIXData();
+        if (data.Count == 1)
+        {
+            result.Value = data[0].Data;
+        }
+        else
+        {
+            result.Value = convertDataToDictionary();
+        }
+        return result;
+    }
+    protected Dictionary<string, object> convertDataToDictionary()
+    {
+        var result = new Dictionary<string, object>();
+        for (int i = 0; i < data.Count; ++i)
+        {
+            result[data[i].ID] = data[i].Data;
+        }
+        return result;
     }
 }
 #endregion
