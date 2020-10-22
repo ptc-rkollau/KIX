@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if KIX_VUFORIA
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
@@ -29,3 +30,4 @@ public class KIXVuforiaPlaneFinderRecreator : MonoBehaviour
     }
 
 }
+#endif
