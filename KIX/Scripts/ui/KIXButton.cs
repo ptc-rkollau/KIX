@@ -12,14 +12,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [AddComponentMenu("[ KIX ] /UI/KIX_Button")]
-public class KIXButton : KIXDataDispatcher, IPointerDownHandler, IPointerUpHandler
+public class KIXButton : KIXDispatcher, IPointerDownHandler, IPointerUpHandler
 {
     //publics.
-    public string EventType = "";
+    public KIXScriptableEventType[] event_obj;
+    [KIXDefinedType] public string EventType;
+
+
 
     //privates.
     private Vector2 oldPos;
-    private float _dragThreshold = 10.0f;
+    private float _dragThreshold = 50.0f;
 
 
     /// <summary>
@@ -39,8 +42,8 @@ public class KIXButton : KIXDataDispatcher, IPointerDownHandler, IPointerUpHandl
     /// <param name="eventData">PointerEventData</param>
     public void OnPointerUp(PointerEventData eventData)
     {
-        float l = Vector2.SqrMagnitude( oldPos - eventData.position );
-        if( l < _dragThreshold )
-            FireKIXEvent( new KIXEvent( EventType, GetData() ));
+        float l = Vector2.SqrMagnitude(oldPos - eventData.position);
+        if (l < _dragThreshold)
+            FireKIXEvent(new KIXEvent(EventType));
     }
 }

@@ -12,7 +12,8 @@ using UnityEngine;
 public class KIXTimedDispatcher : KIXDataDispatcher
 {
     //user defined event type to dispatch at Start.
-    public string EventType = "";
+    public KIXScriptableEventType event_obj;
+    [KIXDefinedType] public string EventType = "";
 
     //delay in ms after which user defined event type will fire.
     public int delayInMS     = 3000;

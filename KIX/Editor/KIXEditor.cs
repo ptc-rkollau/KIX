@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class KIXEditor : MonoBehaviour
 {
-
     [MenuItem("[ KIX ]/Create/UI/View  &v")]
     static void CreateKIXView()
     {
@@ -39,10 +38,10 @@ public class KIXEditor : MonoBehaviour
         if(target)
         {
             for (int i = 0; i < target.transform.childCount; ++i)
-            if (target.transform.GetChild(i).name.Contains("KIX_view")) ++count;
+            if (target.transform.GetChild(i).name.Contains("kx_view")) ++count;
             ++count;
         }
-        go.name = "KIX_view_" + count.ToString("D2");
+        go.name = "kx_view_" + count.ToString("D2");
 
         //position.
         if( target != null)
@@ -52,7 +51,6 @@ public class KIXEditor : MonoBehaviour
         }
         
     }
-
 
     [MenuItem("[ KIX ]/Create/UI/Button &b")]
     static void CreateKIXButton()
@@ -69,10 +67,35 @@ public class KIXEditor : MonoBehaviour
         if (Selection.activeGameObject)
         {
             for (int i = 0; i < Selection.activeGameObject.transform.childCount; ++i)
-            if (Selection.activeGameObject.transform.GetChild(i).name.Contains("KIX_button")) ++count;
+            if (Selection.activeGameObject.transform.GetChild(i).name.Contains("kx_btn")) ++count;
             ++count;
         }
-        go.name = "KIX_button_" + count.ToString("D2");
+        go.name = "kx_btn_" + count.ToString("D2");
+        if (Selection.activeGameObject != null)
+        {
+            go.transform.SetParent(Selection.activeGameObject.transform);
+            rt.localPosition = Vector3.zero;
+        }
+    }
+    [MenuItem("[ KIX ]/Create/UI/Data Button &#B")]
+    static void CreateKIXDataButton()
+    {
+        var go = new GameObject();
+        var rt = go.AddComponent<RectTransform>();
+        go.AddComponent<CanvasRenderer>();
+        go.AddComponent<Image>().color = Color.grey;
+        go.AddComponent<KIXDataButton>();
+
+        rt.sizeDelta = new Vector2(200, 100);
+
+        int count = 0;
+        if (Selection.activeGameObject)
+        {
+            for (int i = 0; i < Selection.activeGameObject.transform.childCount; ++i)
+                if (Selection.activeGameObject.transform.GetChild(i).name.Contains("kx_dbtn")) ++count;
+            ++count;
+        }
+        go.name = "kx_dbtn_" + count.ToString("D2");
         if (Selection.activeGameObject != null)
         {
             go.transform.SetParent(Selection.activeGameObject.transform);

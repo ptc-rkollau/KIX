@@ -11,7 +11,8 @@
 public class KIXOnEnbleDispatcher : KIXDispatcher
 {
     //user defined event type to dispatch at OnEnable.
-    public string EventType = "";
+    public KIXScriptableEventType event_obj;
+    [KIXDefinedType] public string EventType = "";
     
     /// <summary>
     /// On Enable
