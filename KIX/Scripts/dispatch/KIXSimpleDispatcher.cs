@@ -11,7 +11,8 @@
 public class KIXSimpleDispatcher : KIXDispatcher
 {
     //user defined event type to dispatch at Start.
-    public string EventType = "";
+    public KIXScriptableEventType event_obj;
+    [KIXDefinedType] public string EventType = "";
 
     /// <summary>
     /// Start

@@ -7,17 +7,23 @@
  *  @date   : 20 March 2020  
  * 
  */
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("[ KIX ] /UI/KIX_View")]
 public class KIXView : KIXListener
 {
     //publics.
-    public string EventType = "";
-    public string Data_MATCH = "";
+    public KIXScriptableEventType event_obj;
+    [KIXDefinedType] public string SHOW_EventType = "";
+    [KIXDefinedType] public string HIDE_EventType = "";
+
     public bool IsHiddenAtStart = false;
     [Space(10)]
     public GameObject[] attached_objects;
+
+
 
     //privates.
     private CanvasGroup _cnvsGroup;
@@ -33,20 +39,38 @@ public class KIXView : KIXListener
     {
         _cnvsGroup = gameObject.AddComponent<CanvasGroup>();
         ToggleViewVisibility(!IsHiddenAtStart);
-        AddEventListener(EventType, OnKIXEvent);
+
+        AttachEvents(SHOW_EventType, OnKIXShowEvent);
+        AttachEvents(HIDE_EventType, OnKIXHideEvent);
     }
 
-    /// <summary>
-    /// On KIX Event
-    /// Listener for KIX user set event type.
-    /// </summary>
-    /// <param name="evt">KIXEvent</param>
-    private void OnKIXEvent(KIXEvent evt)
+    private void AttachEvents(string eventtype, Action<KIXEvent> eventHandler )
     {
-        if( evt.Type == EventType)
+        if (eventtype.StartsWith("!"))
         {
-            ToggleViewVisibility(((string)evt.Data.Value == Data_MATCH));
+            string actualEvent = eventtype.Substring(1);
+            foreach (TypeEntry entry in event_obj.Types)
+            {
+                if (entry.ID != actualEvent && entry.ID != "")
+                {
+                    AddEventListener(entry.ID, eventHandler);
+                }
+            }
         }
+        else
+        {
+            AddEventListener(eventtype, eventHandler);
+        }
+    }
+
+    private void OnKIXShowEvent(KIXEvent evt)
+    {
+       
+        ToggleViewVisibility(true);
+    }
+    private void OnKIXHideEvent(KIXEvent evt)
+    {
+        ToggleViewVisibility(false);
     }
 
     /// <summary>

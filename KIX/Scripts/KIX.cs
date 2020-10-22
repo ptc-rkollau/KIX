@@ -1,8 +1,10 @@
 ﻿/*
  * KIX - Kickstart your interface experience.
  * ------------------------------------------------------------------------------
- * Current Version 1.0.1 - March 2020
+ * Current Version 1.0.2 - April 2020
  * ------------------------------------------------------------------------------
+ * 
+ * 
  * 
  * Responsible for all things loading, crunching, heavy lifting.
  * Responsible for all things event flow.
@@ -121,6 +123,16 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Reflection;
+
+public struct KIXWatchObject
+{
+    public Type targetType;
+    public object target;
+    public object value;
+    public PropertyInfo property;
+    public KIXEvent changeEvent;
+}
 
 public class KIX : UnityEngine.CustomYieldInstruction
 {
@@ -133,7 +145,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
     private static readonly KIX instance = new KIX();
     private bool isWorking;
     private Dictionary<string, List<Action<KIXEvent>>> listeners_ = new Dictionary<string, List<Action<KIXEvent>>>();
-
+    private List<KIXWatchObject> watchObjects_ = new List<KIXWatchObject>();
 
 
     /// <summary>
@@ -161,7 +173,7 @@ public class KIX : UnityEngine.CustomYieldInstruction
     /// Add Event Listener
     /// Adds an event listener to specific KIX events of type.
     /// </summary>
-    /// <param name="evtType">KIXEventType</param>
+    /// <param name="string">KIXEventType</param>
     /// <param name="method">Action<KIXEvent></param>
     public void AddEventListener(string evtType, Action<KIXEvent> method)
     {
@@ -180,6 +192,19 @@ public class KIX : UnityEngine.CustomYieldInstruction
         listeners_[evtType.ToString()]?.Remove(method);
         if (listeners_[evtType.ToString()].Count == 0)
             listeners_.Remove(evtType.ToString());
+    }
+
+    /// <summary>
+    /// Remove Event Listener
+    /// Removes an event listener to specific KIX events of type.
+    /// </summary>
+    /// <param name="string">KIXEventType</param>
+    /// <param name="method">Action<KIXEvent></param>
+    public void RemoveEventListener(string evtType, Action<KIXEvent> method)
+    {
+        listeners_[evtType]?.Remove(method);
+        if (listeners_[evtType].Count == 0)
+            listeners_.Remove(evtType);
     }
 
     /// <summary>
@@ -317,6 +342,31 @@ public class KIX : UnityEngine.CustomYieldInstruction
     #endregion
 
 
+    public void Watch( object obj_to_track, string property_name, KIXEvent event_to_send)
+    {
+        Type objType          = obj_to_track.GetType();
+        PropertyInfo property = objType.GetProperty(property_name);
+
+        var currentValue      = property.GetValue(obj_to_track);
+        var watchOBJ          = new KIXWatchObject { target = obj_to_track, targetType = obj_to_track.GetType(), value = currentValue, property = property, changeEvent = event_to_send };
+        watchObjects_.Add( watchOBJ );
+    }
+
+    public void CheckWatch()
+    {
+        for( int i = 0; i< watchObjects_.Count;++i)
+        {
+            KIXWatchObject watch = watchObjects_[i];
+            var currentValue = watch.property.GetValue(watchObjects_[i].target);
+            if( currentValue.ToString() != watch.value.ToString() )
+            {
+                watch.value = currentValue;
+                watchObjects_[i] = watch;
+                watch.changeEvent = new KIXEvent( watch.changeEvent.Type, new KIXData { Value = watch } );
+                FireEvent(watch.changeEvent);
+            }
+        }
+    }
     //----------------------------------------------------
     #region PUBLICS
     /// <summary>
@@ -435,16 +485,19 @@ public class KIXEvent : EventArgs
     public string Type { private set; get; }
     public KIXData Data { private set; get; }
 
-    public KIXEvent(KIXEventType t, KIXData data = new KIXData() )
-    {
-        Type = t.Value;
-        Data = data;
-    }
+
     public KIXEvent(string t, KIXData data = new KIXData())
     {
         Type = t;
         Data = data;
     }
+
+    public KIXEvent(KIXEventType t, KIXData data = new KIXData() )
+    {
+        Type = t.Value;
+        Data = data;
+    }
+  
 }
 
 
@@ -531,7 +584,6 @@ public class KIXEventType : EnumBaseType<KIXEventType>
     }
 
 }
-
 
 
 /*
@@ -624,9 +676,6 @@ public interface IKIXDispatcher
 }
 
 
-
-
-
 /**
  *  KIX Dispatcher
  *  Add functionality to enable system to fire events to KIX Event System.
@@ -643,8 +692,6 @@ public class KIXDispatcher : UnityEngine.MonoBehaviour, IKIXDispatcher
         KIX.Instance.FireDelayed(evt, delayInMS, this);
     }
 }
-
-
 
 
 /**

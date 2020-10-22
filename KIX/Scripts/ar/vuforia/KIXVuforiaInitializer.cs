@@ -7,14 +7,22 @@
  *  @date   : 20 March 2020
  * 
  */
+#if KIX_VUFORIA
 using UnityEngine;
 using Vuforia;
+
 [AddComponentMenu("[ KIX ] /AR/Vuforia/Vuforia_Initializer")]
 public class KIXVuforiaInitializer : KIXDataDispatcher
 {
+
     //publics
-    public string startEventType = "";
-    public string initiatedEventType = "";
+    public KIXScriptableEventType[] event_obj;
+    [KIXDefinedType] public string startEventType = "";
+    [KIXDefinedType] public string initiatedEventType = "";
+
+
+
+    private bool _callBackRegistered = false;
 
     /// <summary>
     /// Awake
@@ -27,6 +35,7 @@ public class KIXVuforiaInitializer : KIXDataDispatcher
     {
         VuforiaBehaviour.Instance.enabled = false;
         VuforiaConfiguration.Instance.Vuforia.DelayedInitialization = true;
+        VuforiaARController.Instance.RegisterVuforiaStartedCallback(OnVuforiaInitialized);
         KIX.Instance.AddEventListener(startEventType, InitializeVuforia);
     }
 
@@ -38,8 +47,14 @@ public class KIXVuforiaInitializer : KIXDataDispatcher
     void InitializeVuforia( KIXEvent evt)
     {
         VuforiaBehaviour.Instance.enabled = true;
-        VuforiaARController.Instance.RegisterVuforiaStartedCallback(OnVuforiaInitialized);
-        Vuforia.VuforiaRuntime.Instance.InitVuforia();
+     
+        if(!_callBackRegistered)
+        {
+            
+            Vuforia.VuforiaRuntime.Instance.InitVuforia();
+        }
+          
+        _callBackRegistered = true;
     }
 
     /// <summary>
@@ -48,6 +63,8 @@ public class KIXVuforiaInitializer : KIXDataDispatcher
     /// </summary>
     private void OnVuforiaInitialized()
     {
+       
         KIX.Instance.FireEvent(new KIXEvent(initiatedEventType, GetData()));
     }
 }
+#endif

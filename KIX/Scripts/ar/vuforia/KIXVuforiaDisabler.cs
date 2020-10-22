@@ -7,13 +7,15 @@
  *  @date   : 20 March 2020
  * 
  */
+#if KIX_VUFORIA
 using UnityEngine;
 using Vuforia;
 [AddComponentMenu("[ KIX ] /AR/Vuforia/Vuforia_Disabler")]
 public class KIXVuforiaDisabler : KIXListener
 {
     //user defined event type to dispatch at OnEnable.
-    public string EventType = "";
+    public KIXScriptableEventType event_obj;
+    [KIXDefinedType] public string EventType = "";
 
     /// <summary>
     /// Awake
@@ -32,6 +34,9 @@ public class KIXVuforiaDisabler : KIXListener
     /// <param name="evt"></param>
     private void DisableVuforia( KIXEvent evt )
     {
+        PositionalDeviceTracker _deviceTracker = TrackerManager.Instance.GetTracker<PositionalDeviceTracker>();
+        _deviceTracker?.Reset();
         VuforiaBehaviour.Instance.enabled = false;
     }
 }
+#endif
