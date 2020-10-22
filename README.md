@@ -1,6 +1,6 @@
 # KIX - Kickstart your Unity3D appflow experience.
   ------------------------------------------------------------------------------
- current version: 1.0.1
+ current version: 1.0.2
 <br />
 
    ------------------------------------------------------------------------------
@@ -11,6 +11,8 @@
    + Responsible for all things loading, crunching, heavy lifting.<br />
    Executes everything on different threads, but provides the ease
    of main thread availability.<br /><br />
+   
+   + Does have many low code features to help you build your applicaton fast and efficient!
    
 
 **EVENT SYSTEM SUPPORT**
