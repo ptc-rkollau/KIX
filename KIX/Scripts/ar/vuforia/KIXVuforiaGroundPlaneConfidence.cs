@@ -30,6 +30,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_GroundPlane_Confidence")]
 public class KIXVuforiaGroundPlaneConfidence : KIXDispatcher
 {
     //event to be fired.

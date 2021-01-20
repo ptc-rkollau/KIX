@@ -8,6 +8,8 @@
  *  @date   : 20 March 2020  
  * 
  */
+using UnityEngine;
+[AddComponentMenu("[ KIX ] /Dispatchers/KIX_OnEnable_Dispatcher")]
 public class KIXOnEnbleDispatcher : KIXDispatcher
 {
     //user defined event type to dispatch at OnEnable.

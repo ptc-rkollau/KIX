@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_PlaneFinder_Recreator")]
 public class KIXVuforiaPlaneFinderRecreator : MonoBehaviour
 {
     public KIXScriptableEventType event_obj;

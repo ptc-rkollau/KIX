@@ -11,7 +11,7 @@
 using UnityEngine;
 using Vuforia;
 
-[AddComponentMenu("[ KIX ] /AR/Vuforia/Vuforia_Initializer")]
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_Vuforia_Initializer")]
 public class KIXVuforiaInitializer : KIXDataDispatcher
 {
 

@@ -8,7 +8,7 @@
  * 
  */
 using UnityEngine;
-[AddComponentMenu("[ KIX] /Dispatchers/KIX_Timed_Dispatcher")]
+[AddComponentMenu("[ KIX ] /Dispatchers/KIX_Timed_Dispatcher")]
 public class KIXTimedDispatcher : KIXDataDispatcher
 {
     //user defined event type to dispatch at Start.

@@ -2,6 +2,7 @@
 using UnityEngine;
 using Vuforia;
 
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_TrackerManager")]
 public class KIXVuforiaTrackerManager : MonoBehaviour
 {
     public KIXScriptableEventType event_obj;

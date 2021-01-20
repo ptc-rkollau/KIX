@@ -10,7 +10,7 @@
 #if KIX_VUFORIA
 using UnityEngine;
 using Vuforia;
-[AddComponentMenu("[ KIX ] /AR/Vuforia/Vuforia_Disabler")]
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_Vuforia_Disabler")]
 public class KIXVuforiaDisabler : KIXListener
 {
     //user defined event type to dispatch at OnEnable.

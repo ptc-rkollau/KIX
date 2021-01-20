@@ -1,7 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/**
+ *  KIX Relay
+ *  KIX Event listener which triggers a defined event dispatch
+ *  
+ *  @author : Robin Kollau
+ *  @version: 1.0.0
+ *  @date   : 20 October 2020  
+ * 
+ */
+
 using UnityEngine;
 
+[AddComponentMenu("[ KIX ] /Listeners/KIX_Relay")]
 public class KIXRelay : MonoBehaviour
 {
     public KIXScriptableEventType[] event_obj;

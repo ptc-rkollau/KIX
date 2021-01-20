@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
+[AddComponentMenu("[ KIX ] /AR/Vuforia/KIX_Planefinder_mode_switcher")]
 public class KIXPlaneFinderModeSwitcher : MonoBehaviour
 {
 
